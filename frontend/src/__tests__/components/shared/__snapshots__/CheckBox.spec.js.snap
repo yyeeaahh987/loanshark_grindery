@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckBox component changes the state when clicked 1`] = `
+<div
+  onClick={[Function]}
+  style={
+    Object {
+      "cursor": "pointer",
+    }
+  }
+>
+  <img
+    alt="empty checkbox icon"
+    src="/images/icons/checkbox-empty.svg"
+    style={
+      Object {
+        "display": "block",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`CheckBox component changes the state when clicked 2`] = `
+<div
+  onClick={[Function]}
+  style={
+    Object {
+      "cursor": "pointer",
+    }
+  }
+>
+  <img
+    alt="filled checkbox icon"
+    src="/images/icons/checkbox-checked.svg"
+    style={
+      Object {
+        "display": "block",
+      }
+    }
+  />
+</div>
+`;
