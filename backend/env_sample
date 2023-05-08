@@ -1,0 +1,2 @@
+DATABASE_URL='mongodb+srv://loanshark:loanshark@loanshark.pg2xytf.mongodb.net/loanshark?authSource=%24external&authMechanism=MONGODB-AWS'
+DATABASE_URL='mongodb+srv://loanshark:loanshark@loanshark.pg2xytf.mongodb.net/loanshark'
