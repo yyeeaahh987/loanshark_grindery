@@ -15,11 +15,9 @@ app.use(bodyParser.urlencoded({extended:true}))
 
 
 if(process.env.DATABASE_URL){
-    // mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
-    console.log(process.env.DATABASE_URL)
-    mongoose.connect(`mongodb://localhost:27017/loanshark`)
+    console.log(`${process.env.DATABASE_URL}`)
+    mongoose.connect(`${process.env.DATABASE_URL}`)
     const db = mongoose.connection  
-    // console.log(db)
     console.log(`connecting database`)
     db.on('error', (error) => console.error(error))
     db.once('open', () => console.log('Connected to Database'))
