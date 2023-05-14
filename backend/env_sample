@@ -1,2 +1,8 @@
-DATABASE_URL='mongodb+srv://loanshark:loanshark@loanshark.pg2xytf.mongodb.net/loanshark?authSource=%24external&authMechanism=MONGODB-AWS'
-DATABASE_URL='mongodb+srv://loanshark:loanshark@loanshark.pg2xytf.mongodb.net/loanshark'
+DATABASE_URL=''
+GOOGLE_EMAIL=''
+GOOGLE_PASS=''
+DISCORD_TOKEN=''
+#application id
+DISCORD_CLIENT_ID=''
+#server id
+DISCORD_GUILD_ID='' 
