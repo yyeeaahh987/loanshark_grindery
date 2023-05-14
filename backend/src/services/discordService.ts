@@ -14,9 +14,11 @@ const client = new Client({
   ] 
 });
 const rest = new REST().setToken(DISCORD_TOKEN?DISCORD_TOKEN:'');
-client.login(DISCORD_TOKEN);
+
 
 export async function sendDm(toClientId:string,message:string) {
+  console.log(DISCORD_TOKEN)
+  client.login(DISCORD_TOKEN);
     try{
       const result = await client.users.send(toClientId,message);
       console.log(result)
