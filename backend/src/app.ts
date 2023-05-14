@@ -6,6 +6,7 @@ import mongoose from 'mongoose'
 import bodyParser from "body-parser";
 import workflowRouter from './router/workflowRouter';
 import emailRouter from './router/emailRouter';
+import discordRouter from './router/discordRouter';
 
 
 const app: Application = express()
@@ -30,6 +31,7 @@ app.get("/toto", (req: Request, res: Response) => {
 })
 
 app.use('/email', emailRouter);
+app.use('/discord', discordRouter);
 app.use('/workflow', workflowRouter);
 
 
