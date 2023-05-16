@@ -6,7 +6,12 @@ export async function getWorkflowsListByAddress(address:string){
     // http://localhost:8080/workflow/getWorkflowByAddress/0xD8649AaeBc1Bd65714159f3b5626A4699D0eB7eC
     // let result = 
     try{
-        let result = await fetch(`${LOCAL_SERVER}/workflow/getWorkflowByAddress/${address}`)
+        let result = await fetch(`${LOCAL_SERVER}/workflow/getWorkflowByAddress/${address}`,{
+            headers:{
+                mode: "no-cors",
+                // 'Access-Control-Allow-Origin':"*"       
+            }
+        })
         if(result.status===200){
             let res:any = await result.json()
             return res.result
