@@ -11,7 +11,9 @@ import discordRouter from './router/discordRouter';
 
 const app: Application = express()
 const port: number = 8080
-app.use(cors())
+app.use(cors({
+    origin: '*'
+}));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
