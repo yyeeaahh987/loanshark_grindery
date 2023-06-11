@@ -1927,6 +1927,158 @@ export const WorkflowStepContextProvider = ({
         "user": "eip155:1:0x9C4De71cDbF4956c0Ab5c23d04912315865B7aA8"
       }
     }
+    else if (actionName === 'telegram'){
+      action = {
+        "key": "telegram",
+        "name": "Telegram",
+        "version": "1.0.0",
+        "platformVersion": "1.0.0",
+        "type": "web3",
+        "triggers": [],
+        "actions": [
+          {
+            "key": "subscribe",
+            "name": "Subscribe",
+            "display": {
+              "label": "Subscribe",
+              "description": "Subscribe"
+            },
+            "operation": {
+              "type": "blockchain:call",
+              "signature": "function addSigner(address account)",
+              "inputFields": [
+                {
+                  "key": "username",
+                  "label": "Username. Please also /startsubscribe in telegram bot*",
+                  "type": "string",
+                  "placeholder": "username",
+                  "list": false,
+                  "required": false
+                }
+              ],
+              "outputFields": [],
+              "sample": {}
+            }
+          },
+        ],
+        "icon": "data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCBmaWxsPSIjMzdhZWUyIiBoZWlnaHQ9IjUxMiIgcng9IjE1JSIgd2lkdGg9IjUxMiIvPjxwYXRoIGQ9Im0xOTkgNDA0Yy0xMSAwLTEwLTQtMTMtMTRsLTMyLTEwNSAyNDUtMTQ0IiBmaWxsPSIjYzhkYWVhIi8+PHBhdGggZD0ibTE5OSA0MDRjNyAwIDExLTQgMTYtOGw0NS00My01Ni0zNCIgZmlsbD0iI2E5YzlkZCIvPjxwYXRoIGQ9Im0yMDQgMzE5IDEzNSA5OWMxNCA5IDI2IDQgMzAtMTRsNTUtMjU4YzUtMjItOS0zMi0yNC0yNWwtMzIxIDEyNGMtMjEgOC0yMSAyMS00IDI2bDgzIDI2IDE5MC0xMjFjOS01IDE3LTMgMTEgNCIgZmlsbD0iI2Y2ZmJmZSIvPjwvc3ZnPg==",
+        "user": "eip155:1:0x9C4De71cDbF4956c0Ab5c23d04912315865B7aA8"
+      }
+    }
+    else if (actionName === 'email'){
+      action = {
+        "key": "email",
+        "name": "Email",
+        "version": "1.0.0",
+        "platformVersion": "1.0.0",
+        "type": "web3",
+        "triggers": [],
+        "actions": [
+          {
+            "key": "sendEmail",
+            "name": "Send Email",
+            "display": {
+              "label": "Send Email",
+              "description": "Send Email"
+            },
+            "operation": {
+              "type": "blockchain:call",
+              "signature": "function addSigner(address account)",
+              "inputFields": [
+                {
+                  "key": "toList",
+                  "label": "Recieve List",
+                  "type": "string",
+                  "placeholder": "split with comma",
+                  "list": false,
+                  "required": false
+                }
+              ],
+              "outputFields": [],
+              "sample": {}
+            }
+          },
+        ],
+        "icon": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBzdHJva2U9IiMwMDAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIj48cmVjdCBoZWlnaHQ9IjE0IiByeD0iMSIgd2lkdGg9IjE4IiB4PSIzIiB5PSI1Ii8+PHBhdGggZD0ibTIwIDUuNS04IDcuNS04LTcuNSIvPjwvZz48L3N2Zz4=",
+        "user": "eip155:1:0x9C4De71cDbF4956c0Ab5c23d04912315865B7aA8"
+      }
+    }
+    else if (actionName === 'discord'){
+      action = {
+        "key": "email",
+        "name": "Email",
+        "version": "1.0.0",
+        "platformVersion": "1.0.0",
+        "type": "web3",
+        "triggers": [],
+        "actions": [
+          {
+            "key": "recieveList",
+            "name": "Recieve List",
+            "display": {
+              "label": "Recieve List",
+              "description": "Recieve List"
+            },
+            "operation": {
+              "type": "blockchain:call",
+              "signature": "function addSigner(address account)",
+              "inputFields": [
+                {
+                  "key": "recieveList",
+                  "label": "Recieve List",
+                  "type": "string",
+                  "placeholder": "split with comma",
+                  "list": false,
+                  "required": false
+                }
+              ],
+              "outputFields": [],
+              "sample": {}
+            }
+          },
+        ],
+        "icon": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNzI4OWRhIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCBoZWlnaHQ9IjUxMiIgcng9IjE1JSIgd2lkdGg9IjUxMiIvPjxwYXRoIGQ9Im0zNDYgMzkyLTIxLTI1YzQxLTExIDU3LTM5IDU3LTM5LTUyIDQ5LTE5NCA1MS0yNDkgMCAwIDAgMTQgMjYgNTYgMzlsLTIzIDI1Yy03MC0xLTk3LTQ4LTk3LTQ4IDAtMTA0IDQ2LTE4NyA0Ni0xODcgNDctMzMgOTAtMzMgOTAtMzNsMyA0Yy01OCAxNi04MyA0Mi04MyA0MiA2OC00NiAyMDgtNDIgMjYzIDAgMS0xLTMzLTI4LTg2LTQybDUtNHM0MyAwIDkwIDMzYzAgMCA0NiA4MyA0NiAxODcgMCAwLTI3IDQ3LTk3IDQ4eiIgZmlsbD0iI2ZmZiIvPjxlbGxpcHNlIGN4PSIxOTYiIGN5PSIyNzkiIHJ4PSIzMyIgcnk9IjM1Ii8+PGVsbGlwc2UgY3g9IjMxMiIgY3k9IjI3OSIgcng9IjMzIiByeT0iMzUiLz48L3N2Zz4=",
+        "user": "eip155:1:0x9C4De71cDbF4956c0Ab5c23d04912315865B7aA8"
+      }
+    }
+    else if(actionName === 'notify'){
+      action = {
+        "key": "notify",
+        "name": "Notify",
+        "version": "1.0.0",
+        "platformVersion": "1.0.0",
+        "type": "web3",
+        "triggers": [
+          {
+            "key": "condition",
+            "name": "liquidation",
+            "display": {
+              "label": "Liquidation",
+              "description": "Liquidation"
+            },
+            "operation": {
+              "type": "blockchain:call",
+              "signature": "function addSigner(address account)",
+              "inputFields": [
+                {
+                  "key": "yourPositionLowerThan",
+                  "label": "Your Position lower than",
+                  "type": "string",
+                  "placeholder": "Enter the Percentage",
+                  "list": false,
+                  "required": false
+                }
+              ],
+              "outputFields": [],
+              "sample": {}
+            }
+          },
+        ],
+        "actions": [],
+        "icon": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAwADADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwB1FFdv4J0PT9SsLme8tlmZZQi7icAYB7fWuqTsrn5vg8LLFVVSg7M4iivYv+ET0L/oGxfmf8ar3fhPRDaSbdPjRtvDKSCPcc1HtUeu+HcR/Mvx/wAjyWitLV9In0i68twWib/VyY4Yf0PtWbWidzwqtKdKbhNWaCvSfhz/AMgi7/6+P/ZRXm1ek/Dn/kEXf/Xx/wCyioqbHq5F/vi9GXfF+v3GiWsAtVUzTMQHcZCgYzx680nhDxBPrdtcLdKglgYAsgwGBzjj14p/jNI5NCZPsj3MzMBCEQsUb+9x0wKTwYiR6Gsf2N7adWImDoVLt2bnrkVlpyn0fNW/tHl5/dte39feUviLxpFp/wBfH/srV5rXpPxG/wCQRaf9fH/srV5tWtP4T5zPf98fogrt/BGuafpthcwXlysLNKHXcDgjAHb6VxFFVJXVjgweKlhaqqwV2exf8JZoX/QSh/X/AAo/4SzQv+glD+v+FeO0VHskev8A6x1/5F+P+Z2/jbXNO1LT7aCzuVmdZd7bQcAYI7/WuIooq4qyseRjMVLFVXVmrM//2Q==",
+        "user": "eip155:1:0x9C4De71cDbF4956c0Ab5c23d04912315865B7aA8"
+      }
+    }
     return action
   }
 

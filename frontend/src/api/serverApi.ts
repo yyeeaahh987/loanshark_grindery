@@ -37,6 +37,7 @@ export async function saveWorkflowsByDatabase(newWorkflow:any){
         },
     }
     try{
+        console.log(`${LOCAL_SERVER}/workflow/saveWorkflows`)
         let result = await fetch(`${LOCAL_SERVER}/workflow/saveWorkflows`,{
             method:"POST",
             headers: { 'Content-Type': 'application/json' },

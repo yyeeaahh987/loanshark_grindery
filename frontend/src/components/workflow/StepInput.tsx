@@ -425,7 +425,6 @@ const StepInput = ({ outputFields }: Props) => {
               </Alert>
             </AlertWrapper>
           )}
-
           <div>
             {/* {(operation?.operation?.type === "blockchain:event" ||
               operation?.operation?.type === "blockchain:call") &&

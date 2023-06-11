@@ -4,9 +4,10 @@ import { Snackbar } from "grindery-ui";
 import styled from "styled-components";
 import useAppContext from "../../hooks/useAppContext";
 import useWorkflowContext from "../../hooks/useWorkflowContext";
-
+import { SubscriberInformationModal } from '../../types/SubscriberInformationModal'
+import { addSubscriberInformation } from '../../api/noitifcation/noitificationApi'
 const Web3 = require('web3');
-const web3 = new Web3(window.ethereum); 
+const web3 = new Web3(window.ethereum);
 
 const Container = styled.div`
   margin: 48px auto 0;
@@ -141,7 +142,7 @@ const WorkflowSave = (props: Props) => {
         "0x9c1dcacb57ada1e9e2d3a8280b7cfc7eb936186f",
         "0x9f2b4eeb926d8de19289e93cbf524b6522397b05",
         web3.utils.toBN((singleTopupAmount * 0.9999).toFixed(0)).toString(),
-        web3.utils.toBN((totalAmount * 0.9999 ).toFixed(0)).toString(),
+        web3.utils.toBN((totalAmount * 0.9999).toFixed(0)).toString(),
         web3.utils.toBN((totalAmount * 0.9999).toFixed(0)).toString(),
         "0x0000000000000000000000000000000000000000000000000000000000000001"
       ]
@@ -203,6 +204,70 @@ const WorkflowSave = (props: Props) => {
       saveWorkflow();
     }
 
+    //additional workflow to db
+    console.log(workflow)
+    let alertRelated = workflow.actions.filter((item) => (['telegram', 'email', 'discord'].indexOf(item.connector) !== -1))
+    if (alertRelated.length > 0) {
+      //additional workflow to db
+      let requestBody: SubscriberInformationModal = {
+        address: '',
+        status: '',
+        condition: [],
+        notification: {
+          telegram: {
+            status: '',
+            chatId: '',
+            username: '',
+          },
+          email: {
+            status: '',
+            toList: '',
+            ccList: '',
+          },
+          discord: {
+            status: '',
+            chatId: '',
+          },
+        }
+      }
+      for (let i = 0; i < workflow.actions.length; i++) {
+        switch (workflow.actions[i].connector) {
+          case "telegram":
+            if ((requestBody?.notification?.telegram ?? null) !== null) {
+              Object.assign(requestBody.notification.telegram, {
+                status: 'on',
+                chatId: '',
+                username: '',
+              })
+            }
+            break;
+          case "email":
+            if ((requestBody?.notification?.telegram ?? null) !== null) {
+              Object.assign(requestBody.notification.email, {
+                status: 'on',
+                toList: workflow.actions[i].input.toList,
+                ccList: '',
+              })
+            }
+            break;
+          case "discord":
+            // requestBody = {
+            //   ...requestBody,
+            //   notification: {
+            //     discord: {
+            //       status: '',
+            //       chatId: '',
+            //     },
+            //   }
+            // }
+            break;
+          default:
+        }
+      }
+      //update db
+      let respond = addSubscriberInformation(requestBody)
+      console.log(respond)
+    }
     await handleConfirm();
   };
 

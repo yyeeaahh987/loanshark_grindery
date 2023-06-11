@@ -116,6 +116,7 @@ const WorkflowInputField = ({
   const { updateWorkflow, workflow, setLoading } = useWorkflowContext();
   const { connector, setConnector, operation, setOperationIsTested } = useWorkflowStepContext();
   const [initloadingFinish, setInitloadingFinish] = useState(false)
+  console.log(initloadingFinish)
   const [amount, setAmount] = useState<Number>(0);
   console.log(amount)
   const [exchangeRate, setExchangeRate] = useState<Number>(0);
@@ -125,6 +126,7 @@ const WorkflowInputField = ({
   useEffect(() => {
     (async ()=>{
       if (inputField && inputField.default && !workflowInputValue) {
+        console.log(handleFieldChange)
         handleFieldChange(inputField.default);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -147,6 +149,7 @@ const WorkflowInputField = ({
           console.log(error);
         }
       }
+      console.log(`set loading`)
       setInitloadingFinish(true)
     })
     ()
