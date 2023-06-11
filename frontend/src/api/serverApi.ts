@@ -8,8 +8,8 @@ export async function getWorkflowsListByAddress(address:string){
     try{
         let result = await fetch(`${LOCAL_SERVER}/workflow/getWorkflowByAddress/${address}`,{
             headers:{
-                mode: "no-cors",
-                // 'Access-Control-Allow-Origin':"*"       
+                // mode: "no-cors",
+                'Access-Control-Allow-Origin':"*"       
             }
         })
         if(result.status===200){
@@ -40,7 +40,10 @@ export async function saveWorkflowsByDatabase(newWorkflow:any){
         console.log(`${LOCAL_SERVER}/workflow/saveWorkflows`)
         let result = await fetch(`${LOCAL_SERVER}/workflow/saveWorkflows`,{
             method:"POST",
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin':"*"    
+            },
             body:JSON.stringify(newPostObj)
         })
         if(result.status===200){
