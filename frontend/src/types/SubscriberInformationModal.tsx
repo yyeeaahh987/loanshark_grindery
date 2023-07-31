@@ -1,7 +1,8 @@
 export type SubscriberInformationModal = {
     address: string;
     status: string;
-    condition: Array<string>;
+    key:string;
+    condition: Array<any>;
     notification: {
         telegram: {
             status: string,

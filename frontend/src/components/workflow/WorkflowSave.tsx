@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Navigate, useNavigate, useParams } from "react-router";
+import { v4 as uuidv4 } from 'uuid'
 import { Snackbar } from "grindery-ui";
 import styled from "styled-components";
 import useAppContext from "../../hooks/useAppContext";
 import useWorkflowContext from "../../hooks/useWorkflowContext";
 import { SubscriberInformationModal } from '../../types/SubscriberInformationModal'
-import { addSubscriberInformation } from '../../api/noitifcation/noitificationApi'
+import {
+  addSubscriberInformation,
+  getSubscriberInformationByKey,
+  updateSubscriberInformation,
+} from '../../api/noitifcation/noitificationApi'
 const Web3 = require('web3');
 const web3 = new Web3(window.ethereum);
+const LOANSHARK_BOT_TG = process.env.REACT_APP_LOANSHARK_BOT_TG
 
 const Container = styled.div`
   margin: 48px auto 0;
@@ -60,7 +66,7 @@ type Props = {};
 const WorkflowSave = (props: Props) => {
   const { workflow, saveWorkflow, workflowReadyToSave, updateWorkflow } =
     useWorkflowContext();
-  const { editWorkflow } = useAppContext();
+  const { user, editWorkflow } = useAppContext();
   const { key } = useParams();
   const [loading, setLoading] = useState(false);
   const [amount, setAmount] = useState<Number>(0);
@@ -197,22 +203,16 @@ const WorkflowSave = (props: Props) => {
         }
       );
       console.log(`workflowsave: `, wf)
+      console.log(wf.key)
       updateWorkflow({
         state: wf.state === "on" && workflowReadyToSave ? "on" : "off",
       });
-    } else {
-      saveWorkflow();
-    }
-
-    //additional workflow to db
-    console.log(workflow)
-    let alertRelated = workflow.actions.filter((item) => (['telegram', 'email', 'discord'].indexOf(item.connector) !== -1))
-    if (alertRelated.length > 0) {
       //additional workflow to db
       let requestBody: SubscriberInformationModal = {
         address: '',
         status: '',
-        condition: [],
+        key: wf.key,
+        condition: [''],
         notification: {
           telegram: {
             status: '',
@@ -230,44 +230,158 @@ const WorkflowSave = (props: Props) => {
           },
         }
       }
-      for (let i = 0; i < workflow.actions.length; i++) {
-        switch (workflow.actions[i].connector) {
-          case "telegram":
-            if ((requestBody?.notification?.telegram ?? null) !== null) {
-              Object.assign(requestBody.notification.telegram, {
-                status: 'on',
-                chatId: '',
-                username: '',
-              })
-            }
-            break;
-          case "email":
-            if ((requestBody?.notification?.telegram ?? null) !== null) {
-              Object.assign(requestBody.notification.email, {
-                status: 'on',
-                toList: workflow.actions[i].input.toList,
-                ccList: '',
-              })
-            }
-            break;
-          case "discord":
-            // requestBody = {
-            //   ...requestBody,
-            //   notification: {
-            //     discord: {
-            //       status: '',
-            //       chatId: '',
-            //     },
-            //   }
-            // }
-            break;
-          default:
+      let getSubscriberInformationByKeyResult = await getSubscriberInformationByKey(requestBody)
+      console.log(getSubscriberInformationByKeyResult)
+
+
+      let alertRelated = workflow.actions.filter((item) => (['telegram', 'email', 'discord'].indexOf(item?.connector ?? '') !== -1))
+      console.log(alertRelated)
+      if (alertRelated.length > 0) {
+        //additional workflow to db
+        //get back origin
+        let hasTg:boolean= false
+        let requestBody: SubscriberInformationModal = getSubscriberInformationByKeyResult
+        for (let i = 0; i < workflow.actions.length; i++) {
+          switch (workflow.actions[i].connector) {
+            case "telegram":
+              if ((requestBody?.notification?.telegram ?? null) !== null) {
+                Object.assign(requestBody.notification.telegram, {
+                  status: 'on',
+                  chatId: '',
+                  username: '',
+                })
+                hasTg=true
+              }
+              break;
+            case "email":
+              if ((requestBody?.notification?.telegram ?? null) !== null) {
+                Object.assign(requestBody.notification.email, {
+                  status: 'on',
+                  toList: workflow.actions[i].input.toList,
+                  ccList: '',
+                })
+              }
+              break;
+            case "discord":
+              // requestBody = {
+              //   ...requestBody,
+              //   notification: {
+              //     discord: {
+              //       status: '',
+              //       chatId: '',
+              //     },
+              //   }
+              // }
+              break;
+            default:
+          }
+        }
+        //update db
+        console.log(requestBody)
+        let respond = await updateSubscriberInformation(requestBody)
+        console.log(respond)
+        if(respond.code===0){
+          //success
+        }else{
+          //fail
+        }
+        console.log(hasTg)
+        if(hasTg===true){
+          console.log(LOANSHARK_BOT_TG)
+          window.open(LOANSHARK_BOT_TG);
         }
       }
-      //update db
-      let respond = addSubscriberInformation(requestBody)
-      console.log(respond)
+
+    } else {
+      const newUuid = uuidv4();
+      let key = `staging-${newUuid}`
+      saveWorkflow(key);
+      //additional workflow to db
+      console.log(workflow)
+      console.log(user)
+      let alertRelated = workflow.actions.filter((item) => (['telegram', 'email', 'discord'].indexOf(item.connector) !== -1))
+      if (alertRelated.length > 0) {
+        //additional workflow to db
+        
+        console.log(workflow.trigger.input)
+        console.log(workflow.trigger.input.borrowLimitOver)
+        let requestBody: SubscriberInformationModal = {
+          address: user.replace(`eip155:1:`, ''),
+          status: 'on',
+          condition: [
+            {
+              condition:'borrowLimitOver',
+              value:workflow.trigger.input.borrowLimitOver
+            },
+          ],
+          key: key,
+          notification: {
+            telegram: {
+              status: '',
+              chatId: '',
+              username: '',
+            },
+            email: {
+              status: '',
+              toList: '',
+              ccList: '',
+            },
+            discord: {
+              status: '',
+              chatId: '',
+            },
+          }
+        }
+        let hasTg:boolean= false
+        for (let i = 0; i < workflow.actions.length; i++) {
+          switch (workflow.actions[i].connector) {
+            case "telegram":
+              if ((requestBody?.notification?.telegram ?? null) !== null) {
+                Object.assign(requestBody.notification.telegram, {
+                  status: 'on',
+                  chatId: '',
+                  username: workflow.actions[i].input.username,
+                })
+                hasTg=true
+              }
+              break;
+            case "email":
+              if ((requestBody?.notification?.telegram ?? null) !== null) {
+                Object.assign(requestBody.notification.email, {
+                  status: 'on',
+                  toList: workflow.actions[i].input.toList,
+                  ccList: '',
+                })
+              }
+              break;
+            case "discord":
+              // requestBody = {
+              //   ...requestBody,
+              //   notification: {
+              //     discord: {
+              //       status: '',
+              //       chatId: '',
+              //     },
+              //   }
+              // }
+              break;
+            default:
+          }
+        }
+        //update db
+        console.log(requestBody)
+        let respond = addSubscriberInformation(requestBody)
+        //window redirect
+        if(hasTg===true){
+          console.log(LOANSHARK_BOT_TG)
+          window.open(LOANSHARK_BOT_TG);
+        }
+        
+        console.log(respond)
+      }
     }
+
+
     await handleConfirm();
   };
 

@@ -51,7 +51,7 @@ type WorkflowContextProps = {
   setError: (a: string) => void;
   setSuccess: (a: string) => void;
   setWorkflow: (a: any) => void;
-  saveWorkflow: (callback?: () => void) => void;
+  saveWorkflow: (uuid:string, callback?: () => void) => void;
   resetWorkflow: () => void;
   updateWorkflow: (a: any) => void;
   triggers: {
@@ -476,8 +476,8 @@ export const WorkflowContextProvider = ({
     setActiveStep(1);
   };
 
-  const saveWorkflow = async (callback?: () => void) => {
-    console.log(`saveWorkflow`,workflow)
+  const saveWorkflow = async (uuid:string, callback?: () => void) => {
+    console.log(`saveWorkflow`,workflow,uuid)
     if (workflow) {
       const readyWorkflow = {
         ...workflow,
@@ -490,7 +490,8 @@ export const WorkflowContextProvider = ({
       setError(null);
       setSuccess(null);
       setLoading(true);
-      const res = await saveWorkflowsByDatabase(readyWorkflow)
+      console.log("readyWorkflow", readyWorkflow);
+      const res = await saveWorkflowsByDatabase(readyWorkflow,uuid)
       if (res) {
         getWorkflowsList();
         console.log(callback)

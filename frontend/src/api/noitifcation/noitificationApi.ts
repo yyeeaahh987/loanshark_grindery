@@ -1,11 +1,9 @@
 // import fetch from 'node-fetch'
-import { v4 as uuidv4} from 'uuid'
 import {SubscriberInformationModal} from '../../types/SubscriberInformationModal'
 const LOCAL_SERVER =process.env.REACT_APP_SERVER_URL;
-console.log(`local server address`,LOCAL_SERVER)
 export async function addSubscriberInformation(requestBody:SubscriberInformationModal){
     try{
-        let result = await fetch(`${LOCAL_SERVER}/workflow/addSubscriberInformation`,{
+        let result = await fetch(`${LOCAL_SERVER}/noitifcation/addSubscriberInformation`,{
             // headers:{
             //     mode: "no-cors",
             //     // 'Access-Control-Allow-Origin':"*"       
@@ -21,7 +19,55 @@ export async function addSubscriberInformation(requestBody:SubscriberInformation
     }
     catch(e){
     }
-    return []
+    return {}
+}
+
+export async function getSubscriberInformationByKey(requestBody:SubscriberInformationModal){
+    try{
+        let result = await fetch(`${LOCAL_SERVER}/noitifcation/getSubscriberInformationByKey`,{
+            // headers:{
+            //     mode: "no-cors",
+            //     // 'Access-Control-Allow-Origin':"*"       
+            // }
+            method:"POST",
+            headers: { 'Content-Type': 'application/json' },
+            body:JSON.stringify(requestBody)
+        })
+        console.log(result)
+        if(result.status===200){
+            let res:any = await result.json()
+            console.log(res)
+            return res
+        }
+    }
+    catch(e){
+    }
+    return {}
+}
+
+export async function updateSubscriberInformation(requestBody:SubscriberInformationModal){
+    try{
+        let result = await fetch(`${LOCAL_SERVER}/noitifcation/updateSubscriberInformation`,{
+            // headers:{
+            //     mode: "no-cors",
+            //     // 'Access-Control-Allow-Origin':"*"       
+            // }
+            method:"POST",
+            headers: { 'Content-Type': 'application/json' },
+            body:JSON.stringify(requestBody)
+        })
+        console.log(result)
+        if(result.status===200){
+            let res:any = await result.json()
+            console.log(res)
+            return res
+        }else{
+            
+        }
+    }
+    catch(e){
+    }
+    return {}
 }
 
 // export async function saveWorkflowsByDatabase(newWorkflow:any){

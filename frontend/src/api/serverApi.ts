@@ -22,10 +22,11 @@ export async function getWorkflowsListByAddress(address:string){
     return []
 }
 
-export async function saveWorkflowsByDatabase(newWorkflow:any){
+export async function saveWorkflowsByDatabase(newWorkflow:any, uuid:string){
     const newUuid = uuidv4();
     const newPostObj = {
-        key:`staging-${newUuid}`,
+        // key:`staging-${newUuid}`,
+        key:uuid,
         userAccountId:newWorkflow.creator,
         enabled:false,
         createdAt:"",
@@ -33,7 +34,8 @@ export async function saveWorkflowsByDatabase(newWorkflow:any){
         state:"off",
         workflow:{
             ...newWorkflow,
-            key:`staging-${newUuid}`,
+            // key:`staging-${newUuid}`,
+            key:uuid,
         },
     }
     try{

@@ -2061,8 +2061,8 @@ export const WorkflowStepContextProvider = ({
               "signature": "function addSigner(address account)",
               "inputFields": [
                 {
-                  "key": "yourPositionLowerThan",
-                  "label": "Your Position lower than",
+                  "key": "borrowLimitOver",
+                  "label": "Your Position Over",
                   "type": "string",
                   "placeholder": "Enter the Percentage",
                   "list": false,
