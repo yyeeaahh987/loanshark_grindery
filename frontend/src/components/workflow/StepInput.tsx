@@ -166,22 +166,22 @@ const StepInput = ({ outputFields }: Props) => {
     type === "trigger"
       ? []
       : _.flatten([
-          ...outputFields
-            .filter((out) => out.step < step)
-            .map((out) =>
-              getOutputOptions(
-                out.operation,
-                out.connector,
-                out.type || out.operation.type,
-                out.index
-              )
-            ),
-        ]);
+        ...outputFields
+          .filter((out) => out.step < step)
+          .map((out) =>
+            getOutputOptions(
+              out.operation,
+              out.connector,
+              out.type || out.operation.type,
+              out.index
+            )
+          ),
+      ]);
 
   const gasToken = workflow.actions[index]?.input._grinderyChain
     ? evmChains.find(
-        (chain) => chain.value === workflow.actions[index]?.input._grinderyChain
-      ) || ""
+      (chain) => chain.value === workflow.actions[index]?.input._grinderyChain
+    ) || ""
     : "";
 
   const operationType = operation?.operation?.type;
@@ -194,35 +194,36 @@ const StepInput = ({ outputFields }: Props) => {
     setInputError("");
     setErrors(true);
 
-    const validationSchema = getValidationScheme([
-      ...(operation?.operation?.inputFields || []),
-      ...((operation?.operation?.type === "blockchain:event" ||
-        operation?.operation?.type === "blockchain:call") &&
-      (operation?.operation?.inputFields || []).filter(
-        (inputfield: Field) => inputfield.key === "_grinderyChain"
-      ).length < 1
-        ? [
-            {
-              key: "_grinderyChain",
-              type: "string",
-              required: true,
-            },
-          ]
-        : []),
-      ...((operation?.operation?.type === "blockchain:event" ||
-        operation?.operation?.type === "blockchain:call") &&
-      (operation?.operation?.inputFields || []).filter(
-        (inputfield: Field) => inputfield.key === "_grinderyContractAddress"
-      ).length < 1
-        ? [
-            {
-              key: "_grinderyContractAddress",
-              type: "string",
-              required: true,
-            },
-          ]
-        : []),
-    ]);
+    // const validationSchema = getValidationScheme([
+    //   ...(operation?.operation?.inputFields || []),
+    //   ...((operation?.operation?.type === "blockchain:event" ||
+    //     operation?.operation?.type === "blockchain:call") &&
+    //     (operation?.operation?.inputFields || []).filter(
+    //       (inputfield: Field) => inputfield.key === "_grinderyChain"
+    //     ).length < 1
+    //     ? [
+    //       {
+    //         key: "_grinderyChain",
+    //         type: "string",
+    //         required: true,
+    //       },
+    //     ]
+    //     : []),
+    //   ...((operation?.operation?.type === "blockchain:event" ||
+    //     operation?.operation?.type === "blockchain:call") &&
+    //     (operation?.operation?.inputFields || []).filter(
+    //       (inputfield: Field) => inputfield.key === "_grinderyContractAddress"
+    //     ).length < 1
+    //     ? [
+    //       {
+    //         key: "_grinderyContractAddress",
+    //         type: "string",
+    //         required: true,
+    //       },
+    //     ]
+    //     : []),
+    // ]);
+    // console.log(validationSchema)
     // const check = validator.compile(validationSchema);
     // const validated = check(currentInput);
     // if (typeof validated === "boolean") {
@@ -234,8 +235,40 @@ const StepInput = ({ outputFields }: Props) => {
     //   setErrors(validated);
     //   setInputError("Please complete all required fields.");
     // }
-    const check = validator.compile(validationSchema);
-    const validated = check(currentInput);
+    // const check = validator.compile(validationSchema);
+    // console.log(currentInput)
+    // const validated = check(currentInput);
+    // console.log(validated)
+    // if(validated.length)
+    // validated.map((eachField) => {
+    //   if (eachField.field !== '_grinderyChain' || eachField.field !== '_grinderyContractAddress') {
+    //     switch (eachField.type) {
+    //       case "number":
+    //         let abc = parseInt(eachField.actual)
+    //         console.log(`abc`, abc)
+    //         break;
+    //       case "string":
+    //         break;
+    //       default:
+
+    //     }
+    //     if (eachField.type === 'number') {
+
+    //     }
+    //   }
+
+    //   if (eachField.field)
+    // })
+    // if (validated)
+    //   if (validated)
+
+    if ((currentInput?.borrowLimitOver ?? '') !== '') {
+      if(Number.isNaN(parseInt((currentInput?.borrowLimitOver ?? '').toString()))){
+        setErrors(true)
+        setInputError("Please Your Position Over Shoule be a number.");
+        return 
+      }
+    }
     setActiveRow(activeRow + 1);
     console.log(`finish handleContinueClick`)
   };
@@ -502,12 +535,12 @@ const StepInput = ({ outputFields }: Props) => {
           </div>
           <ButtonWrapper>
             <Button style={{
-                              borderRadius: "20px",
-                              border: "1px solid rgb(71, 145, 255)",
-                              backgroundColor: "rgba(71,145,255, 1)",
-                              padding: "10px 50px 10px 50px"
+              borderRadius: "20px",
+              border: "1px solid rgb(71, 145, 255)",
+              backgroundColor: "rgba(71,145,255, 1)",
+              padding: "10px 50px 10px 50px"
             }}
-            disabled={loading} onClick={handleContinueClick}>
+              disabled={loading} onClick={handleContinueClick}>
               Continue
             </Button>
           </ButtonWrapper>
