@@ -29,6 +29,7 @@ const FujiOracleAddress = '0x707c7C644a733E71E97C54Ee0F9686468d74b9B4';
 const WBTC = '0x9C1DCacB57ADa1E9e2D3a8280B7cfC7EB936186F';
 const USDT = '0x02823f9B469960Bb3b1de0B3746D4b95B7E35543';
 
+// console.log(`dummy`)
 const InputWrapper = styled.div`
   display: flex;
   flex-direction: row;
