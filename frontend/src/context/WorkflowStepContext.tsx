@@ -2013,21 +2013,21 @@ export const WorkflowStepContextProvider = ({
         "triggers": [],
         "actions": [
           {
-            "key": "username",
+            "key": "userId",
             "name": "Discord ID",
             "display": {
-              "label": "Discord ID",
-              "description": "Discord ID"
+              "label": "Discord User ID",
+              "description": "Discord User ID"
             },
             "operation": {
               "type": "blockchain:call",
               "signature": "function addSigner(address account)",
               "inputFields": [
                 {
-                  "key": "username",
-                  "label": "Discord ID",
+                  "key": "userId",
+                  "label": "Discord User ID",
                   "type": "string",
-                  "placeholder": "username",
+                  "placeholder": "User Id",
                   "list": false,
                   "required": false
                 }

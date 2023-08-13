@@ -116,17 +116,14 @@ const WorkflowInputField = ({
   const { updateWorkflow, workflow, setLoading } = useWorkflowContext();
   const { connector, setConnector, operation, setOperationIsTested } = useWorkflowStepContext();
   const [initloadingFinish, setInitloadingFinish] = useState(false)
-  console.log(initloadingFinish)
   const [amount, setAmount] = useState<Number>(0);
-  console.log(amount)
   const [exchangeRate, setExchangeRate] = useState<Number>(0);
-  console.log(exchangeRate)
+  console.log(initloadingFinish,amount,exchangeRate)
   const [priceOfBtc, setPriceOfBtc] = useState<Number>(0);
 
   useEffect(() => {
     (async ()=>{
       if (inputField && inputField.default && !workflowInputValue) {
-        console.log(handleFieldChange)
         handleFieldChange(inputField.default);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -354,9 +351,7 @@ const WorkflowInputField = ({
   );
 
   const renderField = (field: Field, idx?: number) => {
-    console.log(workflowValue)
-    console.log(field)
-    console.log(idx)
+    console.log(workflowValue,field,idx)
     const v =
       typeof idx !== "undefined" && Array.isArray(workflowValue)
         ? workflowValue[idx]
@@ -378,8 +373,7 @@ const WorkflowInputField = ({
     };
 
     if (field.readonly || ["yourCurrentSmartVaultBalance"].includes(field.key)) {
-      console.log(commonProps.label)
-      console.log(commonProps.value)
+      console.log(commonProps)
       return (
         <ReadOnlyWrapper>
           <RichInput

@@ -17,6 +17,7 @@ export type SubscriberInformationModal = {
         discord: {
             status: string,
             chatId: string,
+            clientId: string,
         },
     };
 };
