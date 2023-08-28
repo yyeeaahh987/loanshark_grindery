@@ -1943,22 +1943,22 @@ export const WorkflowStepContextProvider = ({
               "label": "Subscribe",
               "description": "Subscribe"
             },
-            "operation": {
-              "type": "blockchain:call",
-              "signature": "function addSigner(address account)",
-              "inputFields": [
-                {
-                  "key": "username",
-                  "label": "Username. Please also /startsubscribe in telegram bot*",
-                  "type": "string",
-                  "placeholder": "username",
-                  "list": false,
-                  "required": false
-                }
-              ],
-              "outputFields": [],
-              "sample": {}
-            }
+            // "operation": {
+            //   "type": "blockchain:call",
+            //   "signature": "function addSigner(address account)",
+            //   "inputFields": [
+            //     {
+            //       "key": "username",
+            //       "label": "Username. Please also /startsubscribe in telegram bot*",
+            //       "type": "string",
+            //       "placeholder": "username",
+            //       "list": false,
+            //       "required": false
+            //     }
+            //   ],
+            //   "outputFields": [],
+            //   "sample": {}
+            // }
           },
         ],
         "icon": "data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCBmaWxsPSIjMzdhZWUyIiBoZWlnaHQ9IjUxMiIgcng9IjE1JSIgd2lkdGg9IjUxMiIvPjxwYXRoIGQ9Im0xOTkgNDA0Yy0xMSAwLTEwLTQtMTMtMTRsLTMyLTEwNSAyNDUtMTQ0IiBmaWxsPSIjYzhkYWVhIi8+PHBhdGggZD0ibTE5OSA0MDRjNyAwIDExLTQgMTYtOGw0NS00My01Ni0zNCIgZmlsbD0iI2E5YzlkZCIvPjxwYXRoIGQ9Im0yMDQgMzE5IDEzNSA5OWMxNCA5IDI2IDQgMzAtMTRsNTUtMjU4YzUtMjItOS0zMi0yNC0yNWwtMzIxIDEyNGMtMjEgOC0yMSAyMS00IDI2bDgzIDI2IDE5MC0xMjFjOS01IDE3LTMgMTEgNCIgZmlsbD0iI2Y2ZmJmZSIvPjwvc3ZnPg==",

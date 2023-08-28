@@ -278,7 +278,7 @@ const WorkflowSave = (props: Props) => {
           //fail
         }
         if (hasTg === true) {
-          window.open(LOANSHARK_BOT_TG);
+          window.open(`${LOANSHARK_BOT_TG}?start=${key}`);
         }
       }
 
@@ -357,7 +357,7 @@ const WorkflowSave = (props: Props) => {
         let respond = addSubscriberInformation(requestBody)
         //window redirect
         if (hasTg === true) {
-          window.open(LOANSHARK_BOT_TG);
+          window.open(`${LOANSHARK_BOT_TG}?start=${key}`);
         }
         console.log(respond)
       }
